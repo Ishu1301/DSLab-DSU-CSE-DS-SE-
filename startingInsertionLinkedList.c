@@ -1,48 +1,57 @@
 #include<stdio.h>
 #include<stdlib.h>
+
+struct Node* createNode(int);
+struct Node* insertNodeAtStart(int,struct Node*);
 struct Node{
-	int data;
+	int val;
 	struct Node* next;
 };
-struct Node* createNode(int n){
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-	
-	newNode->data=n;
-	newNode->next=NULL;
-	return newNode;
-}
+
 int main(){
-	struct Node* head = NULL;
-	int n1,n2;
-	scanf("%d%d",&n1,&n2);
-	struct Node* first = createNode(n1);
-	struct Node* second = createNode(n2);
+	int n1,n2,n3,n4;
+	printf("Enter values: ");
+	scanf("%d%d%d%d",&n1,&n2,&n3,&n4);
 	
+	struct Node* first = createNode(n1);    
+	struct Node* second = createNode(n2);
+	struct Node* third = createNode(n3);
+	struct Node* fourth = createNode(n4);
+	
+	struct Node* head = NULL;
 	head = first;
-	first->next = second;
+	first->next=second;
+	second->next=third;
+	third->next=fourth;
 	
 	struct Node* current = head;
-	printf("\nCurrent Linked List: ");
-	while(current!=NULL){
-		printf("%d\t",current->data);
-		current = current->next;
-		
+	while(current != NULL){
+		printf("%d\t",current->val);
+		current = current-> next;
 	}
 	
-	struct Node* newFirst = (struct Node*)malloc(sizeof(struct Node));
-	int n3;
-	scanf("%d",&n3);
-	newFirst->data = n3;
-	newFirst->next = first;
-	head = newFirst;
+	int n;
+	printf("\nEnter Element to insert at start: ");
+	scanf("%d",&n);
+	head = insertNodeAtStart(n,head);
 	
-	struct Node* newcurrent = head;
-	printf("\nNew Linked List: ");
-	while(newcurrent!=NULL){
-		printf("%d\t",newcurrent->data);
-		newcurrent = newcurrent->next;
-		
+	while(head != NULL){
+		printf("%d\t",head->val);
+		head = head-> next;
 	}
-	return 0;
-	
+}
+struct Node* createNode(int val){   // Creating New Elements for Linked List
+	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	newNode->val = val;
+	newNode->next = NULL;
+	return newNode;
+}
+struct Node* insertNodeAtStart(int n,struct Node* head){ // Inserting Element at Start of Linked List
+	struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+	struct Node* newHead = (struct Node*)malloc(sizeof(struct Node));
+		
+	temp->val = n;
+	temp->next = head;
+	newHead = temp;
+	return newHead;
 }
