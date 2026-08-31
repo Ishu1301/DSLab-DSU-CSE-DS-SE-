@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 struct Node* createNode(int);
-struct Node* insertNodeAtStart(int,struct Node*);
+struct Node* insertNodeAtEnd(int,struct Node*);
 struct Node{
 	int val;
 	struct Node* next;
@@ -31,14 +31,15 @@ int main(){
 	}
 	
 	int n;
-	printf("\nEnter Element to insert at start: ");
+	printf("\nEnter Element to insert at end: ");
 	scanf("%d",&n);
-	head = insertNodeAtStart(n,head);
+	head = insertNodeAtEnd(n,head);
 	
 	while(head != NULL){
 		printf("%d\t",head->val);
 		head = head-> next;
 	}
+	return 0;
 }
 struct Node* createNode(int val){   // Creating New Elements for Linked List
 	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
@@ -46,12 +47,13 @@ struct Node* createNode(int val){   // Creating New Elements for Linked List
 	newNode->next = NULL;
 	return newNode;
 }
-struct Node* insertNodeAtStart(int n,struct Node* head){ // Inserting Element at Start of Linked List
-	struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-	struct Node* newHead = (struct Node*)malloc(sizeof(struct Node));
-		
-	temp->val = n;
-	temp->next = head;
-	newHead = temp;
-	return newHead;
+struct Node* insertNodeAtEnd(int n,struct Node* head){ // Inserting Element at End of Linked List
+	struct Node* temp = head;
+	struct Node* newNode = createNode(n);
+	
+	while(temp->next!=NULL){
+		temp = temp->next;
+	}
+	temp->next = newNode;
+	return head;
 }
