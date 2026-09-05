@@ -29,7 +29,7 @@ int main(){
     }
     head = deleteFromStart(head);
     
-    printf("New linked list: ");
+    printf("\nNew linked list: ");
     struct Node* newcurrent = head;
     while(newcurrent!=NULL){
         printf("%d\t",newcurrent->data);
